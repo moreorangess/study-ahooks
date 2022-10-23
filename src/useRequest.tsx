@@ -1,6 +1,6 @@
-import { useRequest } from 'ahooks';
+import React, { useState } from 'react';
 import Mock from 'mockjs';
-import React from 'react';
+import { useRequest } from 'ahooks';
 
 function getUsername(): Promise<string> {
   return new Promise((resolve) => {
@@ -11,15 +11,22 @@ function getUsername(): Promise<string> {
 }
 
 const UseRequest = () => {
+  const [name, setName] = useState<string>();
   const { data, error, loading } = useRequest(getUsername);
 
   if (error) {
     return <div>failed to load</div>;
   }
   if (loading) {
+    console.log('[  UseRequest] >');
     return <div>loading...</div>;
   }
-  return <div>Username: {data}</div>;
+  return (
+    <div>
+      <header>1.学习useRequset</header>
+      Username: {data}
+    </div>
+  );
 };
 
 export default UseRequest;
